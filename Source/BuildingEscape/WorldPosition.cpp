@@ -29,8 +29,9 @@ void UWorldPosition::BeginPlay()
 	// UE_LOG(LogTemp, Warning, TEXT("%s 2"), **PrtLog);
 
 	FString Name = GetOwner()->GetName();
+	FVector ObjectPosition = GetOwner()->GetActorLocation();
 
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *Name);
+	UE_LOG(LogTemp, Warning, TEXT("%s is at position X:%f, Y: %f, Z:%f"), *Name, ObjectPosition.X, ObjectPosition.Y, ObjectPosition.Z);
 }
 
 
