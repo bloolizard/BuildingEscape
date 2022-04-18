@@ -23,6 +23,12 @@ void UOpenDoor::BeginPlay()
 	InitialYaw = GetOwner()->GetActorRotation().Yaw;
 	CurrentYaw = InitialYaw;
 	TargetYaw += InitialYaw;
+
+	if (!PressurePlate)
+	{
+		FString ActorName = GetOwner()->GetName();
+		UE_LOG(LogTemp, Error, TEXT("%s - PressurePlate is NULL"), *ActorName);
+	}
 }
 
 
@@ -30,8 +36,13 @@ void UOpenDoor::BeginPlay()
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+
 	
-	OpenDoor(DeltaTime);
+	if (PressurePlate && PressurePlate->IsOverlappingActor(ActorThatOpens))
+	{
+		OpenDoor(DeltaTime);
+	}
 }
 
 void UOpenDoor::OpenDoor(float DeltaTime)
